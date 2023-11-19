@@ -39,6 +39,14 @@ public class AddingNewContactsSteps {
 		addContactsPage.setPreferncesToNo(preferences);
 		
 	}
+	
+	@Then ("user need to have birthday selecetd")
+	public void addBirthDayFromCalendar()
+	{
+		//random birth year need to be selected
+	}
+	
+	
 	@And("{string} is entered and Saved")
 	public void enterNamesLastName(String names) {
 		boolean flag = addContactsPage.enteringLastNames(names);
