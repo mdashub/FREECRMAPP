@@ -9,6 +9,7 @@ Feature: To add New Contacts from Conatacts Section
     When "<FirstName>" is entered and try Saving
     Then Pop up appaers with message "Please enter a surname"
     Then "<Mobile>" "<Email>" "<MessengerNetwork>" is to be filled and prefernces set to No
+    Then user need to have birthday selecetd
     And "<LastName>" is entered and Saved
 
     Examples: 
