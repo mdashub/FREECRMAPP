@@ -12,7 +12,7 @@ import io.cucumber.junit.CucumberOptions;
 		plugin= {"pretty"},
 		publish = true)
 
-public class LoginPageTestIT {
+public class TestRunnerLoginPageTest {
 	
 	
 	

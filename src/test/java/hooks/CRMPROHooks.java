@@ -67,10 +67,10 @@ public class CRMPROHooks {
 		}
 	}
 
-	/*
-	 * @After(order = 0) public void closeBrowser() {
-	 * System.out.println("--Browser is getting Close--"+driver.toString());
-	 * driver.quit(); }
-	 */
+
+	  @After(order = 0) public void closeBrowser() {
+	  System.out.println("--Browser is getting Close--"+driver.toString());
+	  driver.quit(); }
+	 
 
 }
