@@ -1,6 +1,9 @@
 package com.pages;
 
+import java.time.Year;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.factory.CRMApp;
 
@@ -74,4 +77,34 @@ public class AddingContactsPage {
 		saveOnNewContacts();
 		return CRM.getUtil().isElementDisplayed(CRM.getUtil().replaceStringInXpath(verifyUserAdded, LastName));
 	}
+
+	private By calendarIcon = By.cssSelector("#f_trigger_c_birthday");
+
+	private By calendarYearSelectionButton = By.xpath("(//div[@class='calendar'][last()]/table//tr/td)[4]");
+	private By calendarMonthSelectionDropDown = By.xpath("(//div[@class='calendar'][last()]/table//tr/td)[5]");
+	private By allThemonthsDropDown = By
+			.xpath("(//div[@class='calendar'][last()]/table//tr/td)[5]//ancestor::table/following-sibling::div[1]/div");
+
+	private By dateSelection = By
+			.xpath("//div[@class='calendar'][last()]//tbody/tr/td[not(contains(@class,'wn') or @class='emptycell')]");
+
+	public void addBirthDayFromCalendar(String date, String month, String year) {
+		CRM.getUtil().doClickButton(calendarIcon);
+		
+		//click on the month
+		CRM.getUtil().pauseScript(2000);
+		CRM.getUtil().actions_ClickAndHold(calendarMonthSelectionDropDown);
+		WebElement ele= CRM.getUtil().getElementFromListOfOptions(allThemonthsDropDown, month);
+		CRM.getUtil().actions_release(ele);
+
+		// year selection
+		int birthYear = Integer.parseInt(year);
+		int currentYear = Year.now().getValue();
+		CRM.getUtil().continousClick(calendarYearSelectionButton, currentYear - birthYear);
+		
+		//date selection
+		CRM.getUtil().clickFromListOfOptions(dateSelection, date);
+
+	}
+
 }

@@ -27,18 +27,18 @@ public class ElementUtil {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
 	}
-	
-	public By replaceStringInXpath(String xpath , String valueToReplaced) {
+
+	public By replaceStringInXpath(String xpath, String valueToReplaced) {
 		return By.xpath(xpath.replaceAll("#", valueToReplaced));
 	}
-	
-	public By replaceStringICSS(String xpath , String valueToReplaced) {
+
+	public By replaceStringICSS(String xpath, String valueToReplaced) {
 		return By.cssSelector(xpath.replaceAll("#", valueToReplaced));
 	}
 
 	public boolean doClickCheckBox(By locator) {
 
-		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofMinutes(4));
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(80));
 		doGetElement(locator).click();
 		return wait.until(ExpectedConditions.elementToBeSelected(locator));
 	}
@@ -58,18 +58,18 @@ public class ElementUtil {
 	}
 
 	public String doGetTitle(String title) {
-		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofMinutes(4));
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(80));
 		wait.until(ExpectedConditions.titleContains(title));
 		return driver.getTitle();
 	}
 
 	public List<WebElement> waitForElement(By locator) {
-		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofMinutes(4));
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(80));
 		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
 	}
 
 	public List<WebElement> doGetElements(By locator) {
-		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofMinutes(4));
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(80));
 		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
 		// return driver.findElements(locator);
 	}
@@ -87,6 +87,42 @@ public class ElementUtil {
 	public void findAndEnterValue(By locator, String text) {
 		doGetElement(locator).clear();
 		doGetElement(locator).sendKeys(text);
+	}
+
+	public void clickFromListOfOptions(By locator, String valueToBeChosen) {
+
+		List<WebElement> eList = doGetElements(locator);
+		for (WebElement e : eList) {
+			String menu = e.getText();
+			System.out.println(menu);
+
+			if (menu.equalsIgnoreCase(valueToBeChosen)) {
+				e.click();
+			}
+		}
+	}
+
+	public WebElement getElementFromListOfOptions(By locator, String valueToBeChosen) {
+
+		List<WebElement> eList = doGetElements(locator);
+		for (WebElement e : eList) {
+			String menu = e.getText();
+			System.out.println(menu + "------------->" + valueToBeChosen);
+
+			if (menu.equalsIgnoreCase(valueToBeChosen)) {
+				return e;
+
+			}
+		}
+		return null;
+	}
+
+	public void continousClick(By locator, int times) {
+
+		while (times != 0) {
+			doClickButton(locator);
+			times--;
+		}
 	}
 
 	/*
@@ -126,12 +162,23 @@ public class ElementUtil {
 
 	}
 
+	public void actions_ClickAndHold(By locator) {
+		Actions actions = new Actions(driver);
+		actions.clickAndHold(doGetElement(locator)).perform();
+		System.out.println("Holding the mouse");
+	}
+
+	public void actions_release(WebElement element) {
+		Actions actions = new Actions(driver);
+		actions.release(element).perform();
+	}
+
 	/*
 	 * Alert Utils
 	 */
 
 	private Alert checkAlertIsPresent() {
-		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofMinutes(4));
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(80));
 		return wait.until(ExpectedConditions.alertIsPresent());
 	}
 
@@ -152,7 +199,7 @@ public class ElementUtil {
 	 */
 
 	public void frameSwitch(By locator) {
-		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofMinutes(4));
+		WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(80));
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(locator));
 	}
 

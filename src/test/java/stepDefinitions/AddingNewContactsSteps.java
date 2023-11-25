@@ -13,17 +13,17 @@ public class AddingNewContactsSteps {
 	AddingContactsPage addContactsPage = new AddingContactsPage(LoginPageSteps.getCrmapp());
 	
 	@Given("user clicks on New Contacts")
-	public void clickNewContacts() {
+	public void clickNewContactsTest() {
 		addContactsPage.clickOnNewContacts();
 	}
 	
 	@When("{string} is entered and try Saving")
-	public void enterNamesFirstName(String names) {
+	public void enterNamesFirstNameTest(String names) {
 		addContactsPage.enteringFirstNames(names);
 	}
 	
 	@Then("Pop up appaers with message {string}")
-	public void validatePopUpMessage(String messageExpected) {
+	public void validatePopUpMessageTest(String messageExpected) {
 		String messageActual =addContactsPage.popUpinNewContactsPage();
 		SoftAssert softAssert = new SoftAssert();
 		softAssert.assertEquals(messageActual, messageExpected);
@@ -31,7 +31,7 @@ public class AddingNewContactsSteps {
 	}
 	
 	@Then("{string} {string} {string} is to be filled and prefernces set to No")
-	public void addingMobileEmailAndSetPrefernces(String mobile, String email, String messengerNetwork) {
+	public void addingMobileEmailAndSetPreferncesTest(String mobile, String email, String messengerNetwork) {
 		String[] preferences = {"Receive Email","Receive SMS", "Allow Calls"};
 		addContactsPage.enteringEmail(email);
 		addContactsPage.messengerNetwork(messengerNetwork);
@@ -40,15 +40,15 @@ public class AddingNewContactsSteps {
 		
 	}
 	
-	@Then ("user need to have birthday selecetd")
-	public void addBirthDayFromCalendar()
+	@Then ("user tries to select birthday {string} {string} {string} is to be filled")
+	public void addBirthDayFromCalendarTest(String dates ,String months, String years)
 	{
-		//random birth year need to be selected
+		addContactsPage.addBirthDayFromCalendar(dates, months, years);
 	}
 	
 	
 	@And("{string} is entered and Saved")
-	public void enterNamesLastName(String names) {
+	public void enterNamesLastNameTest(String names) {
 		boolean flag = addContactsPage.enteringLastNames(names);
 		SoftAssert softAssert = new SoftAssert();
 		softAssert.assertEquals(flag, true);
